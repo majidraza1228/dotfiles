@@ -3,7 +3,7 @@
 Personal config files. Restore on any machine:
 
 ```bash
-git clone https://github.com/syedraza/dotfiles.git ~/dotfiles
+git clone https://github.com/majidraza1228/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 chmod +x install.sh
 ./install.sh
