@@ -20,18 +20,9 @@ python app.py
 
 ## Rules
 
-Modular rules are in `.claude/rules/`. Claude loads these as needed:
-
-- `.claude/rules/code-style.md` — naming, formatting, patterns
-- `.claude/rules/testing.md` — how to write and run tests
-- `.claude/rules/api-design.md` — endpoint conventions
-
-## Agent Roles
-
-Defined in `.claude/agents/`:
-
-- `code-reviewer` — reviews PRs against PRDs and code style
-- `security-auditor` — checks for vulnerabilities before merge
+@.claude/rules/code-style.md
+@.claude/rules/testing.md
+@.claude/rules/api-design.md
 
 ## PM Layer
 

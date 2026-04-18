@@ -1,0 +1,8 @@
+# Personal local overrides — never commit these
+settings.local.json
+
+# Debug logs
+debug/
+
+# Claude internal cache
+cache/

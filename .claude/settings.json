@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "Bash(python3:*)",
@@ -21,7 +22,6 @@
     "deny": [
       "Bash(rm -rf:*)",
       "Bash(sudo:*)",
-      "Bash(DROP TABLE:*)",
       "Bash(git push --force:*)"
     ]
   },
@@ -33,7 +33,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '[hook] Running: '\"$CLAUDE_TOOL_INPUT\" >> ~/.claude/debug/tool-log.txt"
+            "command": "echo \"[$(date '+%H:%M:%S')] $CLAUDE_TOOL_INPUT\" >> ~/.claude/debug/tool-log.txt"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%H:%M:%S')] Session ended\" >> ~/.claude/debug/tool-log.txt"
           }
         ]
       }

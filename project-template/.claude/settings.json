@@ -1,9 +1,11 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "Bash(python3:*)",
       "Bash(pip:*)",
       "Bash(flask:*)",
+      "Bash(pytest:*)",
       "Bash(git status:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
@@ -21,6 +23,7 @@
       "Bash(DELETE FROM:*)"
     ]
   },
+  "effortLevel": "high",
   "hooks": {
     "PreToolUse": [
       {
@@ -40,6 +43,26 @@
           {
             "type": "command",
             "command": "bash .claude/hooks/post-edit.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%H:%M:%S')] Claude session ended\" >> .claude/debug/session-log.txt 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%H:%M:%S')] Context compacting...\" >> .claude/debug/session-log.txt 2>/dev/null || true"
           }
         ]
       }

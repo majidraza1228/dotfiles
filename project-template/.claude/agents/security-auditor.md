@@ -1,3 +1,11 @@
+---
+name: security-auditor
+description: Audits code changes for security vulnerabilities before they ship. Invoke before merging any PR that touches auth, DB queries, file handling, or external APIs.
+tools: Read, Bash, Glob, Grep
+model: sonnet
+permissionMode: plan
+---
+
 # Agent: Security Auditor
 
 ## Role

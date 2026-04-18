@@ -1,3 +1,10 @@
+---
+name: code-reviewer
+description: Reviews pull requests for correctness, style, and alignment with product specs. PROACTIVELY invoked when user asks to review a PR or branch.
+tools: Read, Bash, Glob, Grep
+model: sonnet
+---
+
 # Agent: Code Reviewer
 
 ## Role

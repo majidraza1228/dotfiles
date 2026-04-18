@@ -294,3 +294,42 @@ cd ~/dotfiles && chmod +x install.sh && ./install.sh
 ```
 
 The install script symlinks every global file into `~/.claude/` so changes to the repo are reflected immediately — no re-copying needed.
+
+---
+
+## Best Practices Adopted
+
+Reviewed against [Claude Code official docs](https://code.claude.com/docs/en/best-practices), [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice), and community patterns. Here is what was adopted and why.
+
+| # | Practice | Adopted | Reason |
+|---|----------|---------|--------|
+| 1 | **YAML frontmatter in agent files** (`name`, `description`, `tools`, `model`) | Yes | Claude uses the `description` field to decide when to auto-invoke an agent. Without it, agents are passive and must be called manually every time |
+| 2 | **YAML frontmatter in skill files** (`name`, `description`, `paths`) | Yes | Same reason — the `description` drives auto-discovery. The `paths` field activates a skill only for matching files, keeping context lean |
+| 3 | **`$schema` in settings.json** | Yes | Enables IDE autocompletion and validation on all 60+ settings fields. Free quality check, no cost |
+| 4 | **`settings.local.json` + `.gitignore`** | Yes | Personal overrides (extra allow rules, personal tokens) stay off git. Team-shared settings stay in `settings.json`. Both files merge — local wins on conflict |
+| 5 | **`@path/to/file` imports in CLAUDE.md** | Yes | Rules files stay modular and focused. CLAUDE.md stays under 200 lines. Claude only loads the rule content when it is actually needed |
+| 6 | **`Stop` and `PreCompact` hook events** | Yes | `Stop` logs when a session ends — useful for auditing. `PreCompact` fires before Claude compresses context — a good place to checkpoint state |
+| 7 | **Keep CLAUDE.md under 200 lines** | Already met | Files over 200 lines cause Claude to start ignoring rules buried near the bottom. If a rule keeps getting missed, the file is probably too long |
+| 8 | **Separate git commit per file** | Skipped | Conflicts with our workflow. We commit logical units of change, not file-by-file |
+
+### Key things to know about agent frontmatter
+
+```yaml
+---
+name: code-reviewer           # How you invoke it
+description: Reviews PRs...   # Claude reads this to decide when to auto-invoke
+tools: Read, Bash, Glob       # Restrict to only what the agent needs
+model: sonnet                 # haiku for fast/cheap, sonnet for quality, opus for complex
+permissionMode: plan          # plan = shows actions before running (good for auditors)
+---
+```
+
+### Key things to know about settings layers
+
+```
+managed-settings.json         ← org-enforced, cannot be overridden
+  └── .claude/settings.json   ← team-shared, committed to git
+        └── settings.local.json ← personal, git-ignored, wins on conflict
+```
+
+Never put secrets or personal tokens in `settings.json`. Use `settings.local.json` instead.
