@@ -1,63 +1,229 @@
-# dotfiles
+# dotfiles — Claude Code Developer Structure
 
 Personal Claude Code config. Restore on any machine in 30 seconds.
 
-## Install
+> This repo is a complete blueprint for working with Claude Code professionally.
+> Every layer has a specific job. Together they turn Claude from a chat tool into a reliable engineering teammate.
+
+---
+
+## Quick Install
 
 ```bash
 git clone https://github.com/majidraza1228/dotfiles.git ~/dotfiles
 cd ~/dotfiles && chmod +x install.sh && ./install.sh
 ```
 
-## Structure
+---
+
+## Why This Structure Exists
+
+Most developers use Claude Code by typing into a chat box. That works for one-off questions. It breaks down the moment you want Claude to:
+
+- Follow your team's coding standards consistently
+- Know what it's allowed to do vs. what it should never touch
+- Run the same PR review workflow every time
+- Understand the product context before touching the code
+- Protect you from dangerous commands
+
+This structure solves all of that. It is not just config files — it is how you give Claude a **professional working environment**, the same way you would onboard a new engineer.
+
+---
+
+## File Structure
 
 ```
 dotfiles/
 ├── install.sh                        # Symlinks everything into place
 │
-├── .claude/                          # Global Claude config (all projects)
-│   ├── CLAUDE.md                     # Global brain — who you are, how Claude behaves
+├── .claude/                          # Global config — applies to every project
+│   ├── CLAUDE.md                     # Your identity, standards, and defaults
 │   ├── settings.json                 # Global permissions + hooks
 │   └── commands/
 │       ├── review.md                 # /review — PR review workflow
-│       └── fix-issue.md              # /fix-issue — GitHub issue → PR
+│       └── fix-issue.md              # /fix-issue — GitHub issue to PR
 │
-└── project-template/                 # Blueprint for every new project
+└── project-template/                 # Copy this into every new project
     └── .claude/
-        ├── CLAUDE.md                 # Project brain (fill in per project)
+        ├── CLAUDE.md                 # Project-specific brain
         ├── settings.json             # Project permissions + hooks
         ├── rules/
-        │   ├── code-style.md         # Naming, formatting, patterns
-        │   ├── testing.md            # How to write and run tests
-        │   └── api-design.md         # Endpoint conventions
+        │   ├── code-style.md
+        │   ├── testing.md
+        │   └── api-design.md
         ├── commands/
-        │   ├── review.md             # /review
-        │   ├── fix-issue.md          # /fix-issue #123
-        │   └── deploy.md             # /deploy
+        │   ├── review.md
+        │   ├── fix-issue.md
+        │   └── deploy.md
         ├── agents/
-        │   ├── code-reviewer.md      # PR review agent
-        │   └── security-auditor.md   # Security audit agent
+        │   ├── code-reviewer.md
+        │   └── security-auditor.md
         └── hooks/
-            ├── pre-tool.sh           # Blocks dangerous commands
-            └── post-edit.sh          # Auto-lints Python on save
+            ├── pre-tool.sh
+            └── post-edit.sh
 ```
 
-## The 8-Layer Model
+---
 
-| Layer | File(s) | Purpose |
-|-------|---------|---------|
-| Brain | `CLAUDE.md` | Architecture, rules, standards |
-| Connector | MCP servers in `settings.json` | GitHub, Slack, DBs |
-| Control Panel | `settings.json` | Permissions + what Claude can/can't do |
-| System Memory | `rules/*.md` | Modular, loaded only when needed |
-| Automation | `commands/*.md` | One-line workflows (`/review`, `/deploy`) |
-| Expertise | `~/.claude/skills/` | On-demand capabilities |
-| Team | `agents/*.md` | Reviewer, auditor — each with its own role |
-| Safety Net | `hooks/*.sh` | Block, lint, validate before/after tool use |
+## The 8 Layers — What Each One Does and Why It Matters
 
-## Scaffold a new project
+### 1. CLAUDE.md — The Brain
+
+**File:** `~/.claude/CLAUDE.md` (global) + `.claude/CLAUDE.md` (per project)
+
+This is the first thing Claude reads in every session. It defines who you are, what stack you use, how you want Claude to communicate, and what it must do before writing any code.
+
+**Without it:** Claude starts every session with no memory of your preferences, your stack, or your standards. You repeat yourself constantly.
+
+**With it:** Claude behaves like a teammate who already knows the codebase, the product, and your working style before the first message.
+
+Two levels:
+- **Global** (`~/.claude/CLAUDE.md`) — your identity, communication style, git rules, coding defaults. Applies everywhere.
+- **Project** (`.claude/CLAUDE.md`) — stack, run commands, PM doc locations. Overrides the global for that project.
+
+---
+
+### 2. settings.json — The Control Panel
+
+**File:** `~/.claude/settings.json` (global) + `.claude/settings.json` (per project)
+
+This is where you define what Claude is allowed to do. It has three jobs:
+
+1. **Allow list** — commands Claude can run without asking (e.g. `git`, `python3`, `gh`)
+2. **Deny list** — commands Claude must never run (e.g. `rm -rf`, `sudo`, `git push --force`)
+3. **Hooks** — scripts that run automatically before or after Claude uses a tool
+
+**Without it:** Claude asks for permission on every command, or you blindly approve everything.
+
+**With it:** Routine commands run without friction. Dangerous ones are blocked before they can execute.
+
+---
+
+### 3. rules/ — The System Memory
+
+**Files:** `.claude/rules/code-style.md`, `rules/testing.md`, `rules/api-design.md`
+
+Instead of one massive CLAUDE.md that tries to cover everything, rules are modular. Each file covers one concern. Claude loads the relevant rule file when the task requires it.
+
+**Without it:** Claude writes code that looks different every session — different naming conventions, different patterns, inconsistent API design.
+
+**With it:** Claude applies your standards automatically. A new endpoint always follows your URL conventions. A new test always follows your testing structure. The codebase stays consistent even across many sessions.
+
+**Best practice:** Keep each rules file focused on one topic. Add a new file when a new concern grows large enough to deserve its own space.
+
+---
+
+### 4. commands/ — The Automation Layer
+
+**Files:** `.claude/commands/review.md`, `commands/fix-issue.md`, `commands/deploy.md`
+
+Custom slash commands that encode your workflows. Instead of explaining the same process every time, you write it once and call it with one line.
+
+```
+/review
+/fix-issue #47
+/deploy
+```
+
+**Without it:** Every PR review is ad-hoc. You re-explain the format every time. Steps get skipped.
+
+**With it:** `/review` always runs the same checklist, checks the PRD, and returns the same structured output. The workflow is repeatable and trustworthy.
+
+**Best practice:** Write a command for any workflow you run more than twice. The command file is just Markdown — write it like instructions to a smart colleague.
+
+---
+
+### 5. agents/ — Your AI Team
+
+**Files:** `.claude/agents/code-reviewer.md`, `agents/security-auditor.md`
+
+Agent definitions give Claude a specific role, mindset, and set of tools for a focused task. Instead of asking Claude to "review my code," you invoke an agent that has a defined perspective, a checklist, and a fixed output format.
+
+**Without it:** Code review is inconsistent. Security checks only happen when you remember to ask.
+
+**With it:** The code reviewer always checks against your PRDs and style rules. The security auditor always runs the same vulnerability checklist. Each agent is a specialist, not a generalist.
+
+**Best practice:** One agent per role. Keep the scope narrow. A focused agent with a clear output format is more reliable than a broad one.
+
+---
+
+### 6. hooks/ — The Safety Net
+
+**Files:** `.claude/hooks/pre-tool.sh`, `hooks/post-edit.sh`
+
+Shell scripts that run automatically before or after Claude uses a tool. Pre-tool hooks can block dangerous commands entirely. Post-edit hooks can lint, validate, or log after every file change.
+
+**Without it:** Claude can execute a destructive command before you have a chance to stop it. There is no automatic quality check after edits.
+
+**With it:**
+- `pre-tool.sh` blocks `rm -rf`, `DROP TABLE`, `DELETE FROM` without `WHERE`, and force pushes — before they run
+- `post-edit.sh` runs `flake8` on every Python file Claude edits, catching style errors immediately
+
+**Best practice:** Keep hooks fast and focused. A hook that takes more than 1-2 seconds will slow down every tool call. Block the genuinely dangerous things. Auto-fix what can be auto-fixed.
+
+---
+
+### 7. skills/ — On-Demand Expertise
+
+**Location:** `~/.claude/skills/`
+
+Skills are reusable capabilities Claude can load when a task requires them. Instead of loading every capability in every session, Claude pulls in a skill only when it is relevant.
+
+**Without it:** You either over-brief Claude with context it does not need, or you forget to include context it does.
+
+**With it:** Claude loads the right knowledge for the right task. A data analysis skill loads when you are working with data. An API integration skill loads when you are calling an external service.
+
+---
+
+### 8. MCP Servers — The Connector
+
+**Configured in:** `settings.json` under `mcpServers`
+
+MCP (Model Context Protocol) servers are how Claude connects to external tools and services. GitHub, Slack, databases, Jira — without MCP, Claude can only talk. With MCP, Claude can act.
+
+**Without it:** Claude can read your code but cannot open issues, send messages, query your database, or interact with any external system.
+
+**With it:** Claude becomes an agent that operates across your entire toolchain. It can read a GitHub issue, write the fix, open a PR, and post the link to Slack — all in one session.
+
+---
+
+## How the Layers Work Together
+
+Here is what happens when you run `/fix-issue #47`:
+
+1. Claude reads **CLAUDE.md** — it knows the stack, the PM docs, and how you work
+2. It checks **settings.json** — it knows what commands it is allowed to run
+3. It loads **commands/fix-issue.md** — it knows the exact workflow to follow
+4. It reads the relevant **rules/** files for the code it is about to write
+5. Every Bash command passes through **hooks/pre-tool.sh** — dangerous commands are blocked
+6. Every file it edits triggers **hooks/post-edit.sh** — Python files are linted automatically
+7. If it needs to open a PR or post to Slack, it uses **MCP** to take action
+
+No re-explaining. No ad-hoc decisions. A consistent, safe, repeatable workflow every time.
+
+---
+
+## Scaffold a New Project
 
 ```bash
 cp -r ~/dotfiles/project-template/.claude <your-project>/.claude
-# Then fill in .claude/CLAUDE.md with your project's stack and context
 ```
+
+Then fill in `.claude/CLAUDE.md` with:
+- Your project name and what it does
+- The tech stack
+- How to run it locally
+- Where the PM docs live
+
+Everything else (rules, commands, agents, hooks) is already ready to use.
+
+---
+
+## Restore on a New Machine
+
+```bash
+git clone https://github.com/majidraza1228/dotfiles.git ~/dotfiles
+cd ~/dotfiles && chmod +x install.sh && ./install.sh
+```
+
+The install script symlinks every global file into `~/.claude/` so changes to the repo are reflected immediately — no re-copying needed.
