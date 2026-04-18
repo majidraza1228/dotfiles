@@ -45,7 +45,7 @@ dotfiles/
 │
 └── project-template/                 # Copy this into every new project
     └── .claude/
-        ├── CLAUDE.md                 # Project-specific brain
+        ├── CLAUDE.example.md         # Rename to CLAUDE.md and fill in
         ├── settings.json             # Project permissions + hooks
         ├── rules/
         │   ├── code-style.md
@@ -98,7 +98,7 @@ It applies to **that one project only** and gets checked into that project's git
 
 ```
 project-template/.claude/
-├── CLAUDE.md          # Fill in: project stack, run commands, PM doc paths
+├── CLAUDE.example.md  # Rename to CLAUDE.md and fill in: stack, run commands, PM doc paths
 ├── settings.json      # Project-specific permissions + hooks
 ├── rules/             # Code style, testing, API design for this project
 ├── commands/          # /review, /fix-issue, /deploy
@@ -127,7 +127,7 @@ Project-level settings win if there is a conflict. Your global CLAUDE.md can say
 | Symlinked to | `~/.claude/` | Not symlinked — copied per project |
 | Scope | Every project | One project only |
 | Checked into | This dotfiles repo | The project's own repo |
-| Changes needed | Rarely — your core identity | Yes — fill in stack, PM paths, team rules |
+| Changes needed | Rarely — your core identity | Yes — rename `CLAUDE.example.md` → `CLAUDE.md` and fill in |
 | Example content | Communication style, git rules | Flask routes, SQLite config, sprint folder |
 
 ---
@@ -273,16 +273,25 @@ No re-explaining. No ad-hoc decisions. A consistent, safe, repeatable workflow e
 ## Scaffold a New Project
 
 ```bash
+# 1. Copy the template into your project
 cp -r ~/dotfiles/project-template/.claude <your-project>/.claude
+
+# 2. Rename the example file — this is your project brain
+mv <your-project>/.claude/CLAUDE.example.md <your-project>/.claude/CLAUDE.md
 ```
 
-Then fill in `.claude/CLAUDE.md` with:
-- Your project name and what it does
-- The tech stack
-- How to run it locally
-- Where the PM docs live
+Then open `.claude/CLAUDE.md` and fill in every placeholder:
 
-Everything else (rules, commands, agents, hooks) is already ready to use.
+| Placeholder | Replace with |
+|-------------|-------------|
+| `[Project Name]` | Your actual project name |
+| `Backend / DB / Frontend / AI` rows | Your real stack choices |
+| Run Locally commands | Your actual install + start commands |
+| PM Layer paths | Where your PRDs and sprint files live |
+
+Everything else (rules, commands, agents, hooks) works out of the box — no changes needed until you have project-specific needs.
+
+> `CLAUDE.example.md` is intentionally named so you cannot accidentally use it as-is. Claude only reads `CLAUDE.md` — the rename is required.
 
 ---
 
