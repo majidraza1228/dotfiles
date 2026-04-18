@@ -65,6 +65,73 @@ dotfiles/
 
 ---
 
+## Two .claude Folders — What Is the Difference?
+
+This repo contains two `.claude` folders. They serve completely different purposes.
+
+### `dotfiles/.claude/` — Your Global Config
+
+This gets **symlinked into `~/.claude/`** on your machine by `install.sh`. It applies to every project, every session — no matter what folder you open Claude Code in.
+
+```
+.claude/
+├── CLAUDE.md          # Who you are, your defaults, your style
+├── settings.json      # Global permissions (what Claude can always run)
+└── commands/
+    ├── review.md      # /review — available in every project
+    └── fix-issue.md   # /fix-issue — available in every project
+```
+
+Think of it as: **the rules that never change, regardless of project.**
+
+---
+
+### `dotfiles/project-template/.claude/` — A Blueprint You Copy
+
+This is never symlinked. You copy it manually into each new project once:
+
+```bash
+cp -r ~/dotfiles/project-template/.claude <your-project>/.claude
+```
+
+It applies to **that one project only** and gets checked into that project's git repo.
+
+```
+project-template/.claude/
+├── CLAUDE.md          # Fill in: project stack, run commands, PM doc paths
+├── settings.json      # Project-specific permissions + hooks
+├── rules/             # Code style, testing, API design for this project
+├── commands/          # /review, /fix-issue, /deploy
+├── agents/            # Code reviewer, security auditor
+└── hooks/             # pre-tool.sh, post-edit.sh
+```
+
+Think of it as: **a starting point you tailor per project.**
+
+---
+
+### How the Two Levels Load Together
+
+When Claude Code opens a project it loads both — global first, then project on top:
+
+```
+~/.claude/CLAUDE.md           ← always loaded (your identity, defaults)
+  +
+<project>/.claude/CLAUDE.md   ← loaded on top (project overrides global)
+```
+
+Project-level settings win if there is a conflict. Your global CLAUDE.md can say "use SQLite by default" but a specific project's CLAUDE.md can say "this one uses PostgreSQL" — Claude follows the project rule.
+
+| | `dotfiles/.claude/` | `project-template/.claude/` |
+|---|---|---|
+| Symlinked to | `~/.claude/` | Not symlinked — copied per project |
+| Scope | Every project | One project only |
+| Checked into | This dotfiles repo | The project's own repo |
+| Changes needed | Rarely — your core identity | Yes — fill in stack, PM paths, team rules |
+| Example content | Communication style, git rules | Flask routes, SQLite config, sprint folder |
+
+---
+
 ## The 8 Layers — What Each One Does and Why It Matters
 
 ### 1. CLAUDE.md — The Brain
