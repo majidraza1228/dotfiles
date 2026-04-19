@@ -148,6 +148,19 @@ Two levels:
 - **Global** (`~/.claude/CLAUDE.md`) — your identity, communication style, git rules, coding defaults. Applies everywhere.
 - **Project** (`.claude/CLAUDE.md`) — stack, run commands, PM doc locations. Overrides the global for that project.
 
+#### Why we structure CLAUDE.md around Karpathy's 4 principles
+
+The global CLAUDE.md is organized around four behavioral principles derived from [Andrej Karpathy's observations on LLM coding pitfalls](https://github.com/multica-ai/andrej-karpathy-skills). LLMs have four systematic failure modes that this structure directly addresses:
+
+| Principle | Problem it solves |
+|-----------|------------------|
+| **1. Think Before Coding** — state assumptions, ask when uncertain, surface ambiguity | LLMs silently pick one interpretation and run with it, producing the wrong thing with confidence |
+| **2. Simplicity First** — minimum code, no speculative features or abstractions | LLMs over-engineer by default — they add configurability, error handling, and helpers nobody asked for |
+| **3. Surgical Changes** — touch only code related to the request, match existing style | LLMs drift into "improving" adjacent code, reformatting, and refactoring things that were not broken |
+| **4. Goal-Driven Execution** — define verifiable success criteria, write tests first, state plans with checkpoints | LLMs treat "make it work" as success; without explicit criteria they stop too early or loop without progress |
+
+These are not style preferences — they are guardrails against the specific ways LLMs tend to waste your time.
+
 ---
 
 ### 2. settings.json — The Control Panel
@@ -320,6 +333,7 @@ Reviewed against [Claude Code official docs](https://code.claude.com/docs/en/bes
 | 6 | **`Stop` and `PreCompact` hook events** | Yes | `Stop` logs when a session ends — useful for auditing. `PreCompact` fires before Claude compresses context — a good place to checkpoint state |
 | 7 | **Keep CLAUDE.md under 200 lines** | Already met | Files over 200 lines cause Claude to start ignoring rules buried near the bottom. If a rule keeps getting missed, the file is probably too long |
 | 8 | **Separate git commit per file** | Skipped | Conflicts with our workflow. We commit logical units of change, not file-by-file |
+| 9 | **Karpathy 4-principle CLAUDE.md structure** (Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution) | Yes | Addresses the four most common LLM failure modes — silent assumptions, over-engineering, scope creep, and weak success criteria. Source: [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) |
 
 ### Key things to know about agent frontmatter
 
