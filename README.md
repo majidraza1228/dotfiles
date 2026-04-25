@@ -16,6 +16,15 @@ This setup gives you one reusable agentic development system across tools:
 
 The goal is the same in each tool: persistent standards, reusable workflows, safer automation, and less prompt repetition.
 
+## Tool mapping
+
+- Copilot `instructions/` maps most closely to Codex `AGENTS.md`
+- Copilot `skills/` maps to Codex `skills/`
+- Copilot `hooks/` maps to Codex hooks configured through `config.toml` or `hooks.json`
+- Copilot `mcp-servers/` maps to Codex MCP entries in `config.toml` plus `mcp-servers/` docs
+
+More detail: `.codex/guides/tool-mapping.md`
+
 ## Quick install
 
 ```bash
@@ -52,6 +61,30 @@ mv <your-project>/.claude/CLAUDE.example.md <your-project>/.claude/CLAUDE.md
 - Codex setup/details: `docs/codex.md`
 - Claude setup/details: `docs/claude-setup.md`
 - Copilot setup/details: `docs/copilot-setup.md`
+- Codex global bootstrap: `.codex/BOOTSTRAP.md`
 - Codex project template internals: `project-template/.codex/README.md`
 - Copilot template internals: `project-template/.github/README.md`
 - Root Copilot reference library: `.github/README.md`
+
+## Validation
+
+Run the Codex structure check for this repo with:
+
+```bash
+bash scripts/validate_codex.sh
+```
+
+## Example Codex Repo Shape
+
+```text
+my-app/
+├── .codex/
+│   ├── AGENTS.md
+│   ├── BOOTSTRAP.md
+│   ├── config.toml
+│   ├── hooks/
+│   ├── mcp-servers/
+│   ├── rules/
+│   └── skills/
+└── src/
+```

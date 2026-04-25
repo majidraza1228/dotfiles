@@ -7,7 +7,9 @@ This repo now includes a dedicated `.codex/` structure for OpenAI Codex so the s
 ### Global Codex files
 
 - `.codex/AGENTS.md` — global instructions that Codex can load from `~/.codex/AGENTS.md`
+- `.codex/BOOTSTRAP.md` — machine-level Codex setup checklist
 - `.codex/config.toml` — user-level Codex defaults
+- `.codex/guides/` — cross-tool mapping and adoption notes
 - `.codex/hooks/` — hook standards and lifecycle automation guidance
 - `.codex/mcp-servers/` — MCP guidance and reusable config snippets
 - `.codex/rules/default.rules` — reusable command approval and safety rules
@@ -17,9 +19,11 @@ This repo now includes a dedicated `.codex/` structure for OpenAI Codex so the s
 ### Project template files
 
 - `project-template/.codex/AGENTS.md` — per-repository instructions
+- `project-template/.codex/BOOTSTRAP.md` — post-copy Codex setup checklist
 - `project-template/.codex/.gitignore` — ignores Codex local runtime artifacts
 - `project-template/.codex/config.toml.example` — project-level Codex config example
 - `project-template/.codex/hooks/` — repo-local Codex hook scripts
+- `project-template/.codex/hooks/hooks.example.json` — alternative hook config example
 - `project-template/.codex/mcp-servers/` — project MCP snippets
 - `project-template/.codex/rules/default.rules` — project-local rules
 - `project-template/.codex/skills/` — repository-specific skills
@@ -35,11 +39,13 @@ Use `~/.codex/` for stable defaults that should apply everywhere:
 - communication style
 - engineering standards
 - default model and personality
+- global bootstrap and adoption notes
 - reusable hook and MCP guidance
 - reusable rules
 - reusable skills
 
 This repo's `install.sh` links stable guidance into `~/.codex/` and seeds mutable files only when they do not already exist. That avoids replacing Codex runtime data such as auth, history, logs, session state, or machine-specific trust metadata.
+Use `.codex/BOOTSTRAP.md` after installation to review the machine-level defaults.
 
 ### Repository layer
 
@@ -51,7 +57,7 @@ Use `<project>/.codex/` for project-specific guidance:
 - repo-specific workflows as skills
 - project-local safety rules
 
-The `AGENTS.md` file is the most important project-level entry point because Codex loads it automatically when working in the repository. For richer automation, pair it with `.codex/config.toml` or a committed `config.toml.example`.
+The `AGENTS.md` file is the most important project-level entry point because Codex loads it automatically when working in the repository. For richer automation, pair it with `.codex/config.toml` or a committed `config.toml.example`, then follow `BOOTSTRAP.md`.
 
 ## Files And Purpose
 
@@ -82,6 +88,7 @@ This repo includes:
 
 - hook standards in `.codex/hooks/README.md`
 - a project template with example hook scripts and a matching `config.toml.example`
+- `hooks.example.json` for teams that prefer a dedicated hook config file
 
 Suggested uses:
 
@@ -116,6 +123,7 @@ Use skills for repeatable workflows. Each skill should live in its own directory
 - optional `assets/`
 
 This repo includes `fix-issue`, `code-review`, and `implement-feature` patterns so Codex has equivalents for bug fixing, review, and implementation workflows.
+It also includes `security-review` for auth, secrets, shell safety, and data exposure reviews.
 
 ### `.codex/plugins/`
 
@@ -138,6 +146,11 @@ This creates or updates:
 - `~/.codex/rules/default.rules` if it does not already exist
 - `~/.codex/skills/fix-issue`
 
+Then review:
+
+- `~/.codex/config.toml`
+- `.codex/BOOTSTRAP.md`
+
 ### Scaffold Codex into a new project
 
 ```bash
@@ -147,12 +160,48 @@ cp -r ~/dotfiles/project-template/.codex <your-project>/.codex
 After copying, customize:
 
 - `<your-project>/.codex/AGENTS.md`
+- `<your-project>/.codex/BOOTSTRAP.md` as your checklist
 - `<your-project>/.codex/config.toml` from `config.toml.example` if you want hooks or project-local MCP
+- `<your-project>/.codex/hooks/hooks.example.json` if you prefer hook config separate from `config.toml`
 - `<your-project>/.codex/hooks/*.py` for repository policy
 - `<your-project>/.codex/rules/default.rules`
 - `<your-project>/.codex/skills/*/SKILL.md`
 
 The template `.gitignore` already excludes local Codex runtime files such as session logs, caches, auth state, and SQLite state files.
+
+For this dotfiles repo itself, run:
+
+```bash
+bash scripts/validate_codex.sh
+```
+
+The CI workflow `.github/workflows/codex-check.yml` runs the same validation plus `shellcheck` for the validator script.
+
+## Tool Mapping
+
+If you are translating patterns from Copilot to Codex, use `.codex/guides/tool-mapping.md`.
+
+Short version:
+
+- Copilot `instructions/` -> Codex `AGENTS.md`
+- Copilot `skills/` -> Codex `skills/`
+- Copilot `hooks/` -> Codex hooks configured via `config.toml` or `hooks.json`
+- Copilot `mcp-servers/` -> Codex MCP entries in `config.toml`
+
+## Example Downstream Repo
+
+```text
+my-app/
+├── .codex/
+│   ├── AGENTS.md
+│   ├── BOOTSTRAP.md
+│   ├── config.toml
+│   ├── hooks/
+│   ├── mcp-servers/
+│   ├── rules/
+│   └── skills/
+└── src/
+```
 
 ## Standards For Good Codex Repositories
 
@@ -164,6 +213,8 @@ The template `.gitignore` already excludes local Codex runtime files such as ses
 - Do not symlink the entire `~/.codex/` home because it also stores runtime state.
 
 ## References
+
+Validated against OpenAI Codex docs on April 25, 2026.
 
 These structures were aligned with current Codex documentation and local Codex conventions:
 

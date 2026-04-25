@@ -15,3 +15,4 @@ Use repository-local Codex hooks for deterministic checks around tool use and tu
 - `pre_tool_use_policy.py` — blocks obviously dangerous Bash commands
 - `permission_request.py` — denies escalations for blocked command patterns
 - `stop_require_verification.py` — asks Codex to mention verification before finishing
+- `hooks.example.json` — example for teams that want a dedicated hooks config file

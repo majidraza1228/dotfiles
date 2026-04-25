@@ -15,3 +15,4 @@ Store reusable Codex skills here.
 - `fix-issue`
 - `code-review`
 - `implement-feature`
+- `security-review`

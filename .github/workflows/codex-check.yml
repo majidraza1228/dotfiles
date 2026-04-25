@@ -1,0 +1,29 @@
+name: Codex Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  codex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install validation tools
+        run: sudo apt-get update && sudo apt-get install -y ripgrep shellcheck
+
+      - name: Shellcheck validator
+        run: shellcheck scripts/validate_codex.sh
+
+      - name: Run Codex validation
+        run: bash scripts/validate_codex.sh
