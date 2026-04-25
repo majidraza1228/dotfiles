@@ -4,6 +4,16 @@
 
 Track VS Code plugins/extensions that support Copilot workflows.
 
+## Why helpful
+
+Standard plugin sets reduce environment drift and improve consistency across contributors.
+
+## How to use
+
+1. Keep required/optional lists in `vscode-plugins.json`.
+2. Mirror key recommendations in `.vscode/extensions.json`.
+3. Review and prune stale entries periodically.
+
 ## Standards
 
 1. Separate required vs optional plugins.

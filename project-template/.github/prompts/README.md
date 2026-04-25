@@ -4,6 +4,16 @@
 
 Provide reusable prompt templates for repeatable engineering workflows.
 
+## Why helpful
+
+Prompt files are active, reusable task shortcuts for recurring asks like review/fix/implement.
+
+## How to use
+
+1. Create with Agent Customizations UI or `/create prompt`.
+2. Keep prompts task-specific.
+3. Use explicit placeholders and expected output format.
+
 ## Standards
 
 1. Start with the goal and required output format.

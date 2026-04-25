@@ -2,6 +2,12 @@
 
 Repository-level `.github` structure for Copilot guidance.
 
+## Why this helps
+
+This folder is a **reference library** so teams can copy proven customization patterns quickly instead of rebuilding from scratch.
+
+In VS Code, manage these through **Agent Customizations UI** (`chat customizations`).
+
 ## Included folders
 
 - `instructions/`

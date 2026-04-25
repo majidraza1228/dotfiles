@@ -4,6 +4,16 @@
 
 Capture specialized, reusable capabilities used by Copilot workflows.
 
+## Why helpful
+
+Skills let Copilot load focused capabilities when relevant (for example, issue-fix or docs-update flows).
+
+## How to use
+
+1. Create with `/create skill`.
+2. Define trigger, inputs, and expected outputs.
+3. Keep each skill narrow and composable.
+
 ## Standards
 
 1. Skill files must describe trigger conditions.

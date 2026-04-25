@@ -6,6 +6,19 @@ This repo provides a reusable developer structure for:
 2. **GitHub Copilot in VS Code** (`.github/` + `.vscode/` project template)
 3. **OpenAI Codex** (`.codex/` global + project template)
 
+## Why this is helpful (Copilot customization flow)
+
+This setup gives you one consistent system for Copilot customizations:
+
+1. **Instructions** define persistent rules (style, architecture, guardrails).
+2. **Skills** package repeatable capabilities with clear triggers.
+3. **Agents** provide role-based behavior (reviewer, security, implementer).
+4. **Prompt files** speed up repeat tasks with reusable commands.
+5. **Hooks** automate formatting, checks, and policy enforcement.
+6. **Plugins/workflows** keep local editor behavior and CI checks aligned.
+
+In VS Code, open **Agent Customizations UI** from Command Palette (`chat customizations`) or Chat gear icon to manage these features in one place.
+
 ## Quick install
 
 ```bash

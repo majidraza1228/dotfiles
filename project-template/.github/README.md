@@ -2,6 +2,12 @@
 
 This `.github/` template is designed for VS Code + GitHub Copilot projects.
 
+## Why this helps
+
+You define behavior once (instructions, skills, agents, prompts, hooks) and reuse it across tasks, reducing prompt repetition and improving consistency.
+
+In VS Code, open **Agent Customizations UI** (`chat customizations`) to inspect and evolve these files.
+
 ## Folders
 
 - `instructions/` — shared standards and coding rules Copilot should follow

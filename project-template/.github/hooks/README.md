@@ -4,6 +4,16 @@
 
 Automate safety checks around editing, commits, and workflow transitions.
 
+## Why helpful
+
+Hooks run automatic commands at lifecycle points, so formatting and policy checks happen without manual steps.
+
+## How to use
+
+1. Create via Agent Customizations UI or `/create hook`.
+2. Bind script to lifecycle event (post-edit, pre-commit, pre-push, etc.).
+3. Reload window if hook registration changes.
+
 ## Standards
 
 1. Hooks must be fast and deterministic.

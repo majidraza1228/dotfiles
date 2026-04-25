@@ -4,6 +4,16 @@
 
 Keep repository-wide instructions modular, versioned, and easy to review.
 
+## Why helpful
+
+Instructions are always-on guidance for Copilot. They reduce repeated prompting and keep outputs aligned with project standards.
+
+## How to use
+
+1. Generate via Agent Customizations UI or `/create instructions`.
+2. Keep files scoped by concern and file types.
+3. Reference them from `copilot-instructions.md`.
+
 ## Standards
 
 1. One concern per file (coding, testing, security, API, etc.).
