@@ -11,3 +11,5 @@ cache/
 auth.json
 installation_id
 .tmp/
+__pycache__/
+*.pyc
