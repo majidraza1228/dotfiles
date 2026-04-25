@@ -38,7 +38,7 @@ mv <your-project>/.claude/CLAUDE.example.md <your-project>/.claude/CLAUDE.md
 
 ## Detailed docs
 
-- Codex setup/details: `codex.md`
+- Codex setup/details: `docs/codex.md`
 - Claude setup/details: `docs/claude-setup.md`
 - Copilot setup/details: `docs/copilot-setup.md`
 - Codex project template internals: `project-template/.codex/README.md`
