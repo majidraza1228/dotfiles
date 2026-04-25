@@ -1,4 +1,4 @@
-# dotfiles — Claude Code Developer Structure
+# dotfiles — Claude Code + GitHub Copilot Developer Structure
 
 Personal Claude Code config. Restore on any machine in 30 seconds.
 
@@ -44,23 +44,35 @@ dotfiles/
 │       └── fix-issue.md              # /fix-issue — GitHub issue to PR
 │
 └── project-template/                 # Copy this into every new project
-    └── .claude/
-        ├── CLAUDE.example.md         # Rename to CLAUDE.md and fill in
-        ├── settings.json             # Project permissions + hooks
-        ├── rules/
-        │   ├── code-style.md
-        │   ├── testing.md
-        │   └── api-design.md
-        ├── commands/
-        │   ├── review.md
-        │   ├── fix-issue.md
-        │   └── deploy.md
-        ├── agents/
-        │   ├── code-reviewer.md
-        │   └── security-auditor.md
-        └── hooks/
-            ├── pre-tool.sh
-            └── post-edit.sh
+    ├── .claude/
+    │   ├── CLAUDE.example.md         # Rename to CLAUDE.md and fill in
+    │   ├── settings.json             # Project permissions + hooks
+    │   ├── rules/
+    │   │   ├── code-style.md
+    │   │   ├── testing.md
+    │   │   └── api-design.md
+    │   ├── commands/
+    │   │   ├── review.md
+    │   │   ├── fix-issue.md
+    │   │   └── deploy.md
+    │   ├── agents/
+    │   │   ├── code-reviewer.md
+    │   │   └── security-auditor.md
+    │   └── hooks/
+    │       ├── pre-tool.sh
+    │       └── post-edit.sh
+    ├── .github/
+    │   ├── copilot-instructions.md   # Project instructions for Copilot Chat
+    │   ├── instructions/             # Standards and rules guidance
+    │   ├── prompts/                  # Reusable prompt templates
+    │   ├── agents/                   # Role-based agent guidance
+    │   ├── skills/                   # Reusable capability guidance
+    │   ├── hooks/                    # Hook scripts + standards
+    │   ├── mcp-servers/              # MCP config templates
+    │   └── plugins/                  # Plugin/extension standards
+    └── .vscode/
+        ├── extensions.json           # Recommends Copilot extensions
+        └── settings.json             # VS Code/Copilot chat defaults
 ```
 
 ---
@@ -288,6 +300,8 @@ No re-explaining. No ad-hoc decisions. A consistent, safe, repeatable workflow e
 ```bash
 # 1. Copy the template into your project
 cp -r ~/dotfiles/project-template/.claude <your-project>/.claude
+cp -r ~/dotfiles/project-template/.github <your-project>/.github
+cp -r ~/dotfiles/project-template/.vscode <your-project>/.vscode
 
 # 2. Rename the example file — this is your project brain
 mv <your-project>/.claude/CLAUDE.example.md <your-project>/.claude/CLAUDE.md

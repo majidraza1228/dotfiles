@@ -1,0 +1,18 @@
+{
+  "required": [
+    {
+      "id": "GitHub.copilot",
+      "reason": "Inline completions and chat integration."
+    },
+    {
+      "id": "GitHub.copilot-chat",
+      "reason": "Prompt workflows and repository-aware Copilot Chat."
+    }
+  ],
+  "optional": [
+    {
+      "id": "GitHub.vscode-pull-request-github",
+      "reason": "PR review and issue workflow in VS Code."
+    }
+  ]
+}
