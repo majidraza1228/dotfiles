@@ -6,6 +6,9 @@ This `.codex/` template is designed for repository-level Codex guidance.
 
 - `AGENTS.md` — project instructions Codex loads automatically
 - `.gitignore` — keeps Codex local runtime state out of git
+- `config.toml.example` — project-scoped Codex config example for hooks and MCP
+- `hooks/` — repo-local hook scripts and standards
+- `mcp-servers/` — MCP snippets and setup notes
 - `rules/default.rules` — project-local safety and approval rules
 - `skills/` — repository-specific Codex skills
 

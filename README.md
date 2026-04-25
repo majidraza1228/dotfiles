@@ -6,18 +6,15 @@ This repo provides a reusable developer structure for:
 2. **GitHub Copilot in VS Code** (`.github/` + `.vscode/` project template)
 3. **OpenAI Codex** (`.codex/` global + project template)
 
-## Why this is helpful (Copilot customization flow)
+## Why this is helpful
 
-This setup gives you one consistent system for Copilot customizations:
+This setup gives you one reusable agentic development system across tools:
 
-1. **Instructions** define persistent rules (style, architecture, guardrails).
-2. **Skills** package repeatable capabilities with clear triggers.
-3. **Agents** provide role-based behavior (reviewer, security, implementer).
-4. **Prompt files** speed up repeat tasks with reusable commands.
-5. **Hooks** automate formatting, checks, and policy enforcement.
-6. **Plugins/workflows** keep local editor behavior and CI checks aligned.
+1. **Claude** uses global and project `CLAUDE.md`, rules, commands, and hooks.
+2. **Copilot** uses instructions, skills, agents, prompts, hooks, plugins, and workflows.
+3. **Codex** uses `AGENTS.md`, skills, rules, hooks, MCP config, and plugins.
 
-In VS Code, open **Agent Customizations UI** from Command Palette (`chat customizations`) or Chat gear icon to manage these features in one place.
+The goal is the same in each tool: persistent standards, reusable workflows, safer automation, and less prompt repetition.
 
 ## Quick install
 
@@ -30,7 +27,7 @@ cd ~/dotfiles && chmod +x install.sh && ./install.sh
 
 ```text
 dotfiles/
-├── .codex/                     # Global Codex standards (linked/seeded into ~/.codex selectively)
+├── .codex/                     # Global Codex standards (AGENTS/rules/skills/hooks/MCP docs)
 ├── .claude/                    # Global Claude config (symlinked to ~/.claude)
 ├── project-template/.codex/    # Per-project Codex template
 ├── project-template/.claude/   # Per-project Claude template

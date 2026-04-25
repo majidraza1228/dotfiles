@@ -8,3 +8,9 @@ Place repository-specific Codex skills here.
 - Every skill must include `SKILL.md` with `name` and `description`.
 - Keep project-specific context here rather than in the global `~/.codex/skills/` layer.
 - Add scripts or references only when they materially improve repeatability.
+
+## Suggested core skills
+
+- `fix-issue`
+- `code-review`
+- `implement-feature`
