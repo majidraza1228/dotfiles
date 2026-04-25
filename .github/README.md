@@ -11,5 +11,6 @@ Repository-level `.github` structure for Copilot guidance.
 - `hooks/`
 - `mcp-servers/`
 - `plugins/`
+- `workflows/`
 
 Each folder includes standards so this repo can be reused as a base template.

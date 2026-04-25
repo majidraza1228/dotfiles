@@ -23,6 +23,7 @@ dotfiles/
 ├── project-template/.claude/   # Per-project Claude template
 ├── project-template/.github/   # Per-project Copilot structure (instructions/prompts/agents/skills/hooks/mcp/plugins)
 ├── project-template/.vscode/   # VS Code Copilot defaults
+├── .github/                    # Root Copilot best-practices library (reference + reusable examples)
 └── install.sh
 ```
 
@@ -43,3 +44,4 @@ mv <your-project>/.claude/CLAUDE.example.md <your-project>/.claude/CLAUDE.md
 - Copilot setup/details: `docs/copilot-setup.md`
 - Codex project template internals: `project-template/.codex/README.md`
 - Copilot template internals: `project-template/.github/README.md`
+- Root Copilot reference library: `.github/README.md`
