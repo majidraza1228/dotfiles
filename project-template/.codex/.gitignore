@@ -1,0 +1,13 @@
+# Codex local runtime state — never commit these
+sessions/
+tmp/
+log/
+history.jsonl
+session_index.jsonl
+state_*.sqlite
+models_cache.json
+shell_snapshots/
+cache/
+auth.json
+installation_id
+.tmp/

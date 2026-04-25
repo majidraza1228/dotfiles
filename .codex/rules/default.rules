@@ -1,0 +1,27 @@
+prefix_rule(
+    pattern = ["git", "push", "--force"],
+    decision = "forbidden",
+    justification = "Force-pushing shared branches is blocked. Create a new commit instead.",
+    match = [
+        "git push --force origin main"
+    ]
+)
+
+prefix_rule(
+    pattern = ["rm", "-rf"],
+    decision = "forbidden",
+    justification = "Recursive forced deletes are blocked. Use targeted, reviewable file removals instead.",
+    match = [
+        "rm -rf build"
+    ]
+)
+
+prefix_rule(
+    pattern = ["pytest"],
+    decision = "allow",
+    justification = "Project test runs are allowed by default.",
+    match = [
+        "pytest",
+        "pytest tests/ -v"
+    ]
+)
